@@ -53,7 +53,7 @@ pipeline {
                 script {
                     // Deploy using SCP/SSH (requires SSH credentials in Jenkins)
                     sh """
-                        My awesome app has been deployed on AWS
+                      echo  "My awesome app has been deployed on AWS"
                     """
                     // Alternative: Use rsync for better syncing
                     
