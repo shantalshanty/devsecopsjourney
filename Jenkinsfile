@@ -51,11 +51,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Deploy using SCP/SSH (requires SSH credentials in Jenkins)
+                    
                     sh """
-                      echo  "My awesome app has been deployed on AWS"
+                      echo  "My awesome app has been deployed on AWS ${BUILD_ID}"
                     """
-                    // Alternative: Use rsync for better syncing
+                    
                     
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
     post {
         success {
             echo 'Vue.js app successfully built and deployed!'
-            // Optional: Send Slack/Email notification
+            // Optional: Send Email notification
         }
         failure {
             echo 'Pipeline failed! Check logs for errors.'
