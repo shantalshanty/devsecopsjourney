@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        poLLSCM 'H/1 * * * *'
+    }
+
     stages {
         stage('Setup Node') {
             steps {
