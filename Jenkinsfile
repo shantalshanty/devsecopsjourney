@@ -14,13 +14,13 @@ pipeline {
                 
             }
         }
-        //  stage('Install Dependencies') {
-        //     steps {
-        //         echo "Installing dependencies.."
-        //         sh 'npm install'
+         stage('Install Dependencies') {
+            steps {
+                echo "Installing dependencies.."
+                sh 'npm install'
                 
-        //     }
-        // }
+            }
+        }
         stage('Test') {
             steps {
                 echo "Testing.."
