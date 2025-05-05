@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Setup Node') {
+            steps {
+                echo "Checking node version"
+                sh "node --version"
+                sh "npm --version"
+                
+            }
+        }
+        //  stage('Install Dependencies') {
+        //     steps {
+        //         echo "Installing dependencies.."
+        //         sh 'npm install'
+                
+        //     }
+        // }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh 'npm run test:unit'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building....'
+                sh 'npm run build'
+                archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            }
+        }
+    }
+}
