@@ -9,28 +9,28 @@ pipeline {
         stage('Setup Node') {
             steps {
                 echo "Checking node version"
-                bat "node --version"
-                bat "npm --version"
+                sh "node --version"
+                sh "npm --version"
                 
             }
         }
          stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies.."
-                bat 'npm install'
+                sh 'npm install'
                 
             }
         }
         stage('Test') {
             steps {
                 echo "Testing.."
-                bat 'npm run test:unit'
+                sh 'npm run test:unit'
             }
         }
         stage('Build') {
             steps {
                 echo 'Building....'
-                bat 'npm run build'
+                sh 'npm run build'
                 archiveArtifacts artifacts: 'dist/**', fingerprint: true
             }
         }
