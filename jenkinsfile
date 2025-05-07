@@ -7,6 +7,9 @@ pipeline {
         pollSCM 'H/5 * * * *'
 
     }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials ('shanty-dockerhub')
+    }
 
     stages {
 
@@ -59,9 +62,32 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/**', fingerprint: true
 
             }
+             stage('Building') {
+            steps {
+                echo 'Building....'
+                sh 'docker build -t shantalshanty/devsecopsjourney:$BUILD_ID .'
+               
+            }
+        }
+      stage('login') {
+          steps {
+              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+          }
+      }
+      stage ('push'){
+          steps {
+            sh 'docker push shantalshanty/devsecopsjourney:$BUILD_ID'
+           }  
+         }
+ 
 
         }
 
+    }
+    post {
+        always {
+            sh 'docker logout'
+        }
     }
 
 }
